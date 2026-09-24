@@ -12,6 +12,7 @@ import pyreadr
 
 PBP = sys.argv[1] if len(sys.argv) > 1 else "pbp_players_pos_2026.rds"
 MIN_DROPBACKS = int(sys.argv[2]) if len(sys.argv) > 2 else 60
+MIN_NG_PLAYS = 40
 
 FBS = {"ACC", "Big Ten", "Big 12", "SEC", "Pac-12", "American Athletic",
        "Mountain West", "Sun Belt", "Mid-American", "Conference USA",
@@ -62,17 +63,28 @@ names = pd.concat([pb, ru]).groupby(["qb_id", "pos_team"]).agg(
 out = names.join([summarize(pb, "db_"), summarize(ru, "rush_"),
                   summarize(pd.concat([pb, ru]), "tot_")])
 ng = pd.concat([pb, ru])
-out["tot_epa_per_nongarbage"] = ng[nongarbage(ng)].groupby(["qb_id", "pos_team"])["EPA"].mean()
-out = out.fillna({"rush_plays": 0, "rush_epa": 0})
+ng = ng[nongarbage(ng)].groupby(["qb_id", "pos_team"])
+out["ng_plays"] = ng.size()
+out["tot_epa_per_nongarbage"] = ng["EPA"].mean()
+out["ng_success"] = ng["epa_success"].mean()
+out = out.fillna({"rush_plays": 0, "rush_epa": 0, "ng_plays": 0})
 out = out[out["db_plays"] >= MIN_DROPBACKS].sort_values("tot_epa_per", ascending=False)
 out = out.reset_index().rename(columns={"pos_team": "team"})
 out.insert(0, "rank", range(1, len(out) + 1))
 
 cols = ["rank", "qb", "team", "conf", "games", "db_plays", "db_epa_per", "db_success",
         "rush_plays", "rush_epa_per", "tot_plays", "tot_epa", "tot_epa_per",
-        "tot_success", "tot_epa_per_nongarbage"]
+        "tot_success", "ng_plays", "tot_epa_per_nongarbage", "ng_success"]
 out = out[cols].round(3)
 out.to_csv("qb_epa_2026.csv", index=False)
+
+# Non-garbage-time ranking (win probability 10-90%), same dropback minimum
+# plus enough competitive-game snaps to be meaningful.
+ng_out = (out[out["ng_plays"] >= MIN_NG_PLAYS]
+          .sort_values("tot_epa_per_nongarbage", ascending=False)
+          .rename(columns={"rank": "overall_rank"}))
+ng_out.insert(0, "rank", range(1, len(ng_out) + 1))
+ng_out.to_csv("qb_epa_2026_nongarbage.csv", index=False)
 weeks = sorted(df["week"].unique())
 print(f"weeks {weeks}, min {MIN_DROPBACKS} dropbacks, {len(out)} QBs, "
       f"{unattributed} dropbacks unattributed")

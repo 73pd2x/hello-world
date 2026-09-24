@@ -9,7 +9,121 @@ FBS offenses, games through Sep 20, 2026 (Week 0 games are folded into Week 1).
 - Not opponent-adjusted, so a team that has played FCS opponents looks better.
 - Source: cfbfastR play-by-play (`sportsdataverse/cfbfastR-data`, `data/rds/pbp_players_pos_2026.rds`). Rebuild with `python qb_epa.py <rds> [min_dropbacks]`.
 
-Full table: [`qb_epa_2026.csv`](qb_epa_2026.csv)
+Full tables: [`qb_epa_2026.csv`](qb_epa_2026.csv), [`qb_epa_2026_nongarbage.csv`](qb_epa_2026_nongarbage.csv)
+
+## Non-garbage time (win probability 10–90%)
+
+Same 60-dropback pool, plus at least 40 plays in competitive game states (105 QBs).
+
+|   # |   Overall # | QB                       | Team                  | Conf              |   Plays (WP 10–90%) |   EPA/play (WP 10–90%) |   Success (WP 10–90%) |   EPA/play (all) |
+|----:|------------:|:-------------------------|:----------------------|:------------------|--------------------:|-----------------------:|----------------------:|-----------------:|
+|   1 |           6 | Bear Bachmeier           | BYU                   | Big 12            |                  43 |                  0.688 |                 0.605 |            0.406 |
+|   2 |           9 | Keelon Russell           | Alabama               | SEC               |                  62 |                  0.562 |                 0.565 |            0.376 |
+|   3 |          44 | Katin Houser             | Illinois              | Big Ten           |                  60 |                  0.527 |                 0.583 |            0.193 |
+|   4 |          10 | Tayven Jackson           | North Texas           | American Athletic |                  74 |                  0.508 |                 0.541 |            0.373 |
+|   5 |           5 | Kevin Jennings           | SMU                   | ACC               |                  80 |                  0.503 |                 0.600 |            0.409 |
+|   6 |          18 | Kamario Taylor           | Mississippi State     | SEC               |                  52 |                  0.503 |                 0.558 |            0.314 |
+|   7 |          14 | Aaron Philo              | Florida               | SEC               |                  51 |                  0.468 |                 0.588 |            0.324 |
+|   8 |          13 | Avery Johnson            | Kansas State          | Big 12            |                  60 |                  0.430 |                 0.517 |            0.327 |
+|   9 |          27 | Marcus Stokes            | Memphis               | American Athletic |                  94 |                  0.421 |                 0.543 |            0.270 |
+|  10 |           2 | Lincoln Kienholz         | Louisville            | ACC               |                  79 |                  0.419 |                 0.532 |            0.455 |
+|  11 |          16 | Jayden Maiava            | USC                   | Big Ten           |                  72 |                  0.407 |                 0.597 |            0.320 |
+|  12 |          17 | Colton Joseph            | Wisconsin             | Big Ten           |                  54 |                  0.406 |                 0.537 |            0.316 |
+|  13 |          21 | JC French                | Cincinnati            | Big 12            |                  82 |                  0.400 |                 0.598 |            0.295 |
+|  14 |          36 | Trinidad Chambliss       | Ole Miss              | SEC               |                  94 |                  0.386 |                 0.500 |            0.221 |
+|  15 |          33 | Austin Simmons           | Missouri              | SEC               |                  52 |                  0.367 |                 0.462 |            0.234 |
+|  16 |          67 | Beau Pribula             | Virginia              | ACC               |                  46 |                  0.367 |                 0.500 |            0.104 |
+|  17 |          54 | Noah Fifita              | Arizona               | Big 12            |                  70 |                  0.366 |                 0.614 |            0.149 |
+|  18 |          35 | William Watson III       | Massachusetts         | Mid-American      |                  40 |                  0.349 |                 0.450 |            0.225 |
+|  19 |          47 | Dylan Lonergan           | Rutgers               | Big Ten           |                  43 |                  0.344 |                 0.535 |            0.178 |
+|  20 |          11 | Malik Washington         | Maryland              | Big Ten           |                  62 |                  0.344 |                 0.500 |            0.372 |
+|  21 |          20 | Anthony Colandrea        | Nebraska              | Big Ten           |                  55 |                  0.333 |                 0.491 |            0.296 |
+|  22 |          51 | Malachi Singleton        | App State             | Sun Belt          |                  73 |                  0.326 |                 0.493 |            0.169 |
+|  23 |          62 | Cameran Brown            | Georgia State         | Sun Belt          |                  67 |                  0.323 |                 0.627 |            0.120 |
+|  24 |           4 | Ryan Browne              | Purdue                | Big Ten           |                  87 |                  0.305 |                 0.540 |            0.422 |
+|  25 |          26 | John Alan Richter        | Toledo                | Mid-American      |                  61 |                  0.304 |                 0.492 |            0.280 |
+|  26 |          43 | CJ Bailey                | NC State              | ACC               |                  43 |                  0.302 |                 0.535 |            0.194 |
+|  27 |           3 | Jared Curtis             | Vanderbilt            | SEC               |                  54 |                  0.300 |                 0.481 |            0.441 |
+|  28 |          22 | Bishop Davenport         | South Alabama         | Sun Belt          |                  60 |                  0.293 |                 0.483 |            0.294 |
+|  29 |          90 | Nathan Hayes             | North Dakota State    | Mountain West     |                  58 |                  0.292 |                 0.483 |            0.012 |
+|  30 |          42 | Bryce Underwood          | Michigan              | Big Ten           |                  85 |                  0.285 |                 0.553 |            0.197 |
+|  31 |          30 | Ashton Daniels           | Florida State         | ACC               |                  89 |                  0.284 |                 0.427 |            0.246 |
+|  32 |          73 | Taron Dickens            | Northern Illinois     | Mountain West     |                  43 |                  0.279 |                 0.512 |            0.090 |
+|  33 |           8 | David McComb             | Miami (OH)            | Mid-American      |                  48 |                  0.277 |                 0.458 |            0.386 |
+|  34 |          46 | Faizon Brandon           | Tennessee             | SEC               |                  43 |                  0.264 |                 0.442 |            0.185 |
+|  35 |          25 | Giovanni Lopez           | Wake Forest           | ACC               |                  68 |                  0.264 |                 0.544 |            0.282 |
+|  36 |          32 | Maddux Madsen            | Boise State           | Pac-12            |                  89 |                  0.252 |                 0.539 |            0.236 |
+|  37 |           7 | Hauss Hejny              | Colorado State        | Pac-12            |                  55 |                  0.245 |                 0.491 |            0.395 |
+|  38 |          69 | Jayden Mandal            | Fresno State          | Pac-12            |                  55 |                  0.229 |                 0.491 |            0.101 |
+|  39 |          23 | Braden Atkinson          | Oregon State          | Pac-12            |                  87 |                  0.227 |                 0.414 |            0.290 |
+|  40 |          75 | Skyler Locklear          | Missouri State        | Conference USA    |                  57 |                  0.226 |                 0.474 |            0.077 |
+|  41 |          49 | Will Hammond             | Texas Tech            | Big 12            |                  71 |                  0.216 |                 0.493 |            0.176 |
+|  42 |          31 | Conner Weigman           | Houston               | Big 12            |                  74 |                  0.215 |                 0.486 |            0.243 |
+|  43 |          59 | Isaiah Marshall          | Kansas                | Big 12            |                  76 |                  0.205 |                 0.382 |            0.137 |
+|  44 |          55 | Caden Creel              | Jacksonville State    | Conference USA    |                  89 |                  0.200 |                 0.494 |            0.149 |
+|  45 |          65 | Cutter Boley             | Arizona State         | Big 12            |                  61 |                  0.196 |                 0.459 |            0.110 |
+|  46 |          56 | Demond Williams Jr.      | Washington            | Big Ten           |                 100 |                  0.190 |                 0.530 |            0.140 |
+|  47 |          68 | Dante Moore              | Oregon                | Big Ten           |                  73 |                  0.189 |                 0.411 |            0.103 |
+|  48 |         100 | Will Crowder             | Troy                  | Sun Belt          |                  71 |                  0.187 |                 0.451 |           -0.028 |
+|  49 |          64 | Nick Minicucci           | Delaware              | Conference USA    |                  76 |                  0.181 |                 0.461 |            0.111 |
+|  50 |          37 | D'Wayne' Winfield        | Louisiana             | Sun Belt          |                  45 |                  0.177 |                 0.511 |            0.221 |
+|  51 |          15 | C.J. Carr                | Notre Dame            | FBS Independents  |                  48 |                  0.166 |                 0.417 |            0.321 |
+|  52 |          60 | Micah Alejado            | Hawai'i               | Mountain West     |                 136 |                  0.157 |                 0.463 |            0.133 |
+|  53 |          94 | Steven Angeli            | Syracuse              | ACC               |                  81 |                  0.150 |                 0.420 |           -0.005 |
+|  54 |          28 | Brad Jackson             | Texas State           | Pac-12            |                  76 |                  0.115 |                 0.474 |            0.261 |
+|  55 |          38 | Ryder Burton             | UAB                   | American Athletic |                  67 |                  0.107 |                 0.433 |            0.217 |
+|  56 |          52 | Mason Heintschel         | Pittsburgh            | ACC               |                  66 |                  0.102 |                 0.470 |            0.162 |
+|  57 |          41 | Trey Hedden              | New Mexico State      | Conference USA    |                  73 |                  0.101 |                 0.411 |            0.203 |
+|  58 |          74 | Roman Gagliano           | Middle Tennessee      | Conference USA    |                  93 |                  0.099 |                 0.441 |            0.085 |
+|  59 |          39 | Caden Veltkamp           | Florida Atlantic      | American Athletic |                  81 |                  0.092 |                 0.469 |            0.217 |
+|  60 |          96 | Kadin Semonza            | Tulane                | American Athletic |                  60 |                  0.084 |                 0.367 |           -0.006 |
+|  61 |         105 | Trey Owens               | Arkansas State        | Sun Belt          |                  67 |                  0.075 |                 0.493 |           -0.080 |
+|  62 |          29 | Cibastian Broughton      | Akron                 | Mid-American      |                  41 |                  0.070 |                 0.463 |            0.255 |
+|  63 |          61 | Hank Brown               | Iowa                  | Big Ten           |                  46 |                  0.066 |                 0.478 |            0.128 |
+|  64 |          76 | Alessio Milivojevic      | Michigan State        | Big Ten           |                  78 |                  0.043 |                 0.474 |            0.077 |
+|  65 |          24 | Jay Kastantin            | Bowling Green         | Mid-American      |                  41 |                  0.042 |                 0.390 |            0.288 |
+|  66 |          79 | J.J. Kohl                | Florida International | Conference USA    |                 108 |                  0.042 |                 0.435 |            0.064 |
+|  67 |          63 | Arch Manning             | Texas                 | SEC               |                  58 |                  0.037 |                 0.483 |            0.117 |
+|  68 |          57 | Jaden Craig              | TCU                   | Big 12            |                  78 |                  0.035 |                 0.423 |            0.140 |
+|  69 |          71 | Sam Leavitt              | LSU                   | SEC               |                  69 |                  0.024 |                 0.507 |            0.095 |
+|  70 |          85 | Nico Iamaleava           | UCLA                  | Big Ten           |                  94 |                  0.021 |                 0.415 |            0.026 |
+|  71 |          82 | Deshawn Purdie           | Liberty               | Conference USA    |                  67 |                  0.020 |                 0.418 |            0.052 |
+|  72 |          81 | Jaron-Keawe Sagapolutele | California            | ACC               |                  82 |                  0.019 |                 0.402 |            0.060 |
+|  73 |          80 | Byrum Brown              | Auburn                | SEC               |                  81 |                  0.002 |                 0.420 |            0.062 |
+|  74 |         107 | Broc Lowry               | Western Michigan      | Mid-American      |                  79 |                 -0.005 |                 0.443 |           -0.137 |
+|  75 |          40 | Deuce Bailey             | Coastal Carolina      | Sun Belt          |                  66 |                 -0.009 |                 0.455 |            0.207 |
+|  76 |         102 | Billy Edwards            | North Carolina        | ACC               |                  78 |                 -0.011 |                 0.436 |           -0.043 |
+|  77 |          66 | Landyn Locke             | Sam Houston           | Conference USA    |                 102 |                 -0.012 |                 0.441 |            0.108 |
+|  78 |          88 | Davis Warren             | Stanford              | ACC               |                  62 |                 -0.014 |                 0.419 |            0.018 |
+|  79 |         112 | Owen McCown              | UTSA                  | American Athletic |                  69 |                 -0.015 |                 0.406 |           -0.164 |
+|  80 |          87 | Julian Lewis             | Colorado              | Big 12            |                  50 |                 -0.019 |                 0.420 |            0.024 |
+|  81 |          84 | Drew Mestemaker          | Oklahoma State        | Big 12            |                  95 |                 -0.025 |                 0.474 |            0.027 |
+|  82 |          93 | Caden Pinnick            | Washington State      | Pac-12            |                  72 |                 -0.026 |                 0.472 |           -0.004 |
+|  83 |          86 | Jackson Arnold           | UNLV                  | Mountain West     |                 102 |                 -0.029 |                 0.392 |            0.024 |
+|  84 |          70 | Luke Weaver              | San José State        | Mountain West     |                 138 |                 -0.048 |                 0.442 |            0.099 |
+|  85 |          95 | John Mateer              | Oklahoma              | SEC               |                  75 |                 -0.051 |                 0.440 |           -0.006 |
+|  86 |         101 | Mason McKenzie           | Boston College        | ACC               |                  70 |                 -0.069 |                 0.414 |           -0.030 |
+|  87 |         103 | Walker Eget              | Duke                  | ACC               |                  63 |                 -0.070 |                 0.492 |           -0.055 |
+|  88 |         109 | Tait Reynolds            | Clemson               | ACC               |                  78 |                 -0.072 |                 0.449 |           -0.147 |
+|  89 |         104 | Elijah Holmes            | Buffalo               | Mid-American      |                  68 |                 -0.078 |                 0.382 |           -0.076 |
+|  90 |          99 | Kenny Minchey            | Kentucky              | SEC               |                  53 |                 -0.088 |                 0.472 |           -0.017 |
+|  91 |         108 | Tyler Hughes             | Wyoming               | Mountain West     |                  72 |                 -0.091 |                 0.444 |           -0.138 |
+|  92 |          78 | Marcel Reed              | Texas A&M             | SEC               |                  74 |                 -0.097 |                 0.419 |            0.064 |
+|  93 |          83 | KJ Jackson               | Arkansas              | SEC               |                  51 |                 -0.102 |                 0.471 |            0.049 |
+|  94 |         106 | Keldric Luster           | Ball State            | Mid-American      |                  46 |                 -0.117 |                 0.413 |           -0.137 |
+|  95 |          89 | Dru Deshields            | Kent State            | Mid-American      |                  46 |                 -0.120 |                 0.391 |            0.013 |
+|  96 |         115 | Max Johnson              | Georgia Southern      | Sun Belt          |                  81 |                 -0.126 |                 0.321 |           -0.319 |
+|  97 |          72 | Alberto Mendoza          | Georgia Tech          | ACC               |                  64 |                 -0.129 |                 0.453 |            0.095 |
+|  98 |         110 | Ethan Hampton            | Southern Miss         | Sun Belt          |                  42 |                 -0.132 |                 0.500 |           -0.155 |
+|  99 |          48 | Austin Carlisle          | UL Monroe             | Sun Belt          |                  54 |                 -0.146 |                 0.481 |            0.177 |
+| 100 |          77 | Cole Gonzales            | Charlotte             | American Athletic |                  63 |                 -0.167 |                 0.444 |            0.072 |
+| 101 |          92 | Lanorris Sellers         | South Carolina        | SEC               |                  53 |                 -0.168 |                 0.472 |            0.006 |
+| 102 |         111 | Mitch Griffis            | East Carolina         | American Athletic |                  52 |                 -0.170 |                 0.385 |           -0.163 |
+| 103 |         113 | Jayden Denegal           | San Diego State       | Pac-12            |                  42 |                 -0.301 |                 0.310 |           -0.193 |
+| 104 |          97 | Noah Kim                 | Eastern Michigan      | Mid-American      |                  95 |                 -0.332 |                 0.326 |           -0.012 |
+| 105 |         114 | Grady Brosterhous        | Utah State            | Pac-12            |                  48 |                 -0.555 |                 0.208 |           -0.267 |
+
+## All plays
 
 |   # | QB                       | Team                  | Conf              |   G |   Dropbacks |   Rushes |   Plays |   EPA/dropback |   EPA/rush |   EPA/play |   Success |   EPA/play (WP 10–90%) |
 |----:|:-------------------------|:----------------------|:------------------|----:|------------:|---------:|--------:|---------------:|-----------:|-----------:|----------:|-----------------------:|
