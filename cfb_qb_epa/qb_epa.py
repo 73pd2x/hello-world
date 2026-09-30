@@ -5,6 +5,7 @@ data/rds/pbp_players_pos_2026.rds).
 
 Usage: python qb_epa.py [path/to/pbp_players_pos_2026.rds] [min_dropbacks]
 """
+import re
 import sys
 
 import pandas as pd
@@ -38,11 +39,57 @@ miss = pb["qb_id"].isna()
 filled = pb.loc[miss, ["game_id", "pos_team", "passer_player_name"]].join(
     known, on=["game_id", "pos_team", "passer_player_name"])
 pb.loc[miss, ["qb_id", "qb"]] = filled[["qb_id", "qb"]].values
+
+
+# Some games have no stat-attribution columns at all. Fall back to matching the
+# player named in the play text ("#1 N.Kim pass ...", "Noah Kim run ...") to a
+# player credited elsewhere for the same team, keyed on first initial + last name.
+SUFFIXES = {"jr", "sr", "ii", "iii", "iv"}
+
+
+def play_name(text):
+    if not isinstance(text, str):
+        return None
+    m = re.search(r"(?:#\d+\s+)?([A-Z][\w'.\-]*(?:[ .][A-Z][\w'\-]*)*\.?)\s+"
+                  r"(?:pass|sacked|run|rush|scramble)", text)
+    return m.group(1) if m else None
+
+
+def short_key(text):
+    name = play_name(text)
+    if not name:
+        return None
+    parts = [p for p in re.split(r"[ .]+", name.lower().strip(".")) if p]
+    while len(parts) > 2 and parts[-1] in SUFFIXES:
+        parts.pop()
+    return f"{parts[0][0]}.{parts[-1]}" if len(parts) > 1 else None
+
+
+def fill_by_name(rows, id_col, name_col, key_text):
+    rows[id_col] = rows[id_col].astype(object)
+    key = key_text.map(short_key)
+    lookup = pd.DataFrame({"team": rows["pos_team"], "key": key,
+                           "id": rows[id_col], "name": rows[name_col]}).dropna()
+    lookup = lookup.groupby(["team", "key"]).filter(lambda g: g["id"].nunique() == 1)
+    lookup = lookup.drop_duplicates(["team", "key"]).set_index(["team", "key"])
+    miss = rows[id_col].isna() & key.notna()
+    hit = pd.DataFrame({"team": rows.loc[miss, "pos_team"], "key": key[miss]}).join(
+        lookup, on=["team", "key"])
+    rows.loc[miss, [id_col, name_col]] = hit[["id", "name"]].values
+    # Players never credited anywhere: synthetic team+name id, name as in play text.
+    rest = rows[id_col].isna() & key.notna()
+    rows.loc[rest, id_col] = rows.loc[rest, "pos_team"] + ":" + key[rest]
+    rows.loc[rest, name_col] = key_text[rest].map(play_name)
+
+
+fill_by_name(pb, "qb_id", "qb", pb["play_text"])
 unattributed = pb["qb_id"].isna().sum()
 pb = pb.dropna(subset=["qb_id"])
 
 # QB rushes (designed runs + scrambles) by anyone who threw a pass.
-ru = df[(df["rush"] == 1) & df["rush_player_id"].isin(pb["qb_id"].unique())].copy()
+ru = df[df["rush"] == 1].copy()
+fill_by_name(ru, "rush_player_id", "rush_player", ru["play_text"])
+ru = ru[ru["rush_player_id"].isin(pb["qb_id"].unique())]
 ru["qb_id"] = ru["rush_player_id"]
 ru["qb"] = ru["rush_player"]
 
