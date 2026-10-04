@@ -37,3 +37,21 @@ out.insert(0, "rank", range(1, len(out) + 1))
 out = out.reset_index().rename(columns={"pos_team": "team"})
 out.to_csv("team_off_epa_2026.csv", index=False)
 print(out.to_string(index=False))
+
+# Defense: EPA allowed per play (lower is better), garbage time removed.
+dd = next(iter(pyreadr.read_r(PBP).values()))
+dd = dd[dd["EPA"].notna() & dd["defense_conference"].isin(FBS)
+        & ((dd["pass"] == 1) | (dd["rush"] == 1))
+        & dd["wp_before"].between(0.1, 0.9)]
+gd = dd.groupby("def_pos_team")
+dout = pd.DataFrame({
+    "conf": gd["defense_conference"].first(),
+    "games": gd["game_id"].nunique(),
+    "ng_plays": gd.size(),
+    "ng_epa_allowed": gd["EPA"].mean(),
+    "ng_success_allowed": gd["epa_success"].mean(),
+    "ng_pass_epa_allowed": dd[dd["pass"] == 1].groupby("def_pos_team")["EPA"].mean(),
+    "ng_rush_epa_allowed": dd[dd["rush"] == 1].groupby("def_pos_team")["EPA"].mean(),
+}).sort_values("ng_epa_allowed").round(3)
+dout.insert(0, "rank", range(1, len(dout) + 1))
+dout.reset_index().rename(columns={"def_pos_team": "team"}).to_csv("team_def_epa_2026.csv", index=False)
